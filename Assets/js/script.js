@@ -85,6 +85,7 @@ function savePlans(event) {
   var plan = $("textarea").val();
   nineToFive[hourSlot].plans = plan;
   localStorage.setItem('nineToFive', JSON.stringify(nineToFive));
+  event.preventDefault();
 }
 
 //Retrieving user input from localStorage
