@@ -27,6 +27,12 @@ textarea {
 
 .description{
   white-space: pre-wrap;
+  font-size: 1.25rem;
+  font-weight: 300;
+}
+
+.lead {
+  color: #55c555;
 }
 
 .time-block{

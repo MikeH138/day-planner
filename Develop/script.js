@@ -1,6 +1,100 @@
 // Declaring global variables
+var currentDay = moment().format('MMMM Do YYYY');
+var currentHour = moment().format('H A');
 
-var currentDay = moment().format('dddd, MMMM Do YYYY, h:mm:ss a');
+// Function for current time clock
+function clock() {
+  $('#currentTime').html(moment().format('h:mm:ss a'));
+}
+
+setInterval(clock, 1000);
+
+// Building array of objects for the timeblocks
+var nineToFive = [
+  {
+    hour: "9 AM",
+    plans: ""
+  },
+  {
+    hour: "10 AM",
+    plans: ""
+  },
+  {
+    hour: "11 AM",
+    plans: ""
+  },
+  {
+    hour: "12 PM",
+    plans: ""
+  },
+  {
+    hour: "1 PM",
+    plans: ""
+  },
+  {
+    hour: "2 PM",
+    plans: ""
+  },
+  {
+    hour: "3 PM",
+    plans: ""
+  },
+  {
+    hour: "4 PM",
+    plans: ""
+  },
+  {
+    hour: "5 PM",
+    plans: ""
+  },
+];
+
+//Generating the scheduler
+nineToFive.forEach(function(nineToFive, index) {
+  var hour = nineToFive.hour;
+  var plans = updateColor(hour);
+  var hourSlots = `<div class="time-block" id="${index}">
+  <div class="row">
+  <div class="col-sm-10 col-md-1 hour">${hour}</div>
+  <textarea class="col-sm-10 col-md-10 ${plans}">${nineToFive.hours}</textarea>
+  <div class="col-sm-10 col-md-1">
+  <button class="saveBtn" type="submit"><i class="fas fa-save"></i></button>
+  </div>
+  </div>
+  </div>`;
+
+  $(".container").append(hourSlots);
+});
+
+//Function for changing the background color each time-block depending on if the block is in the future, current, or past
+function updateColor(hour) {
+  var current = moment(currentHour, 'H A');
+  var currentTimeBlock = moment(hour, 'H A');
+  if (current.isBefore(currentTimeBlock) === true) {
+    return "future";
+  } else if (current.isAfter(currentTimeBlock) === true) {
+    return "past";
+  } else {
+    return "present";
+  }
+}
+
+//Saving user input to localStorage
+function savePlans(event) {
+  var hourSlot = parseInt($(".time-block").toLocaleString("id"));
+  var plan = $("textarea").val();
+  nineToFive[hourSlot].plans = plan;
+  localStorage.setItem('nineToFive', JSON.stringify(nineToFive));
+}
+
+//Retrieving user input from localStorage
+function getPlans() {
+  var workDay = JSON.parse(localStorage.getItem(schedule));
+    if (workDay)
+      return schedule = workDay;
+}
 
 
+// Displaying the current date and time
 $("#currentDay").text(currentDay);
+$("#currentTime").text(clock);
