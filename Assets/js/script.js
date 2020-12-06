@@ -58,8 +58,8 @@ nineToFive.forEach(function(nineToFive, index) {
   <div class="row">
   <div class="col-sm-10 col-md-1 hour">${hour}</div>
   <textarea class="col-sm-10 col-md-10 ${plans}">${nineToFive.plans}</textarea>
-  <div class="col-sm-10 col-md-1">
-  <button class="saveBtn" type="submit"><i class="fas fa-save"></i></button>
+  <div class="col-sm-10 col-md-1 input-group-append">
+  <button class="saveBtn btn-block" type="submit"><i class="fas fa-save"></i></button>
   </div>
   </div>
   </div>
