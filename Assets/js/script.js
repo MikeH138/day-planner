@@ -53,18 +53,22 @@ var nineToFive = [
 nineToFive.forEach(function(nineToFive, index) {
   var hour = nineToFive.hour;
   var plans = updateColor(hour);
-  var hourSlots = `<div class="time-block" id="${index}">
+  var hourSlots = `<form>
+  <div class="time-block" id="${index}">
   <div class="row">
   <div class="col-sm-10 col-md-1 hour">${hour}</div>
-  <textarea class="col-sm-10 col-md-10 ${plans}">${nineToFive.hours}</textarea>
+  <textarea class="col-sm-10 col-md-10 ${plans}">${nineToFive.plans}</textarea>
   <div class="col-sm-10 col-md-1">
   <button class="saveBtn" type="submit"><i class="fas fa-save"></i></button>
   </div>
   </div>
-  </div>`;
+  </div>
+  </form>`;
 
   $(".container").append(hourSlots);
 });
+
+$(".saveBtn").on("click", saveInput);
 
 //Function for changing the background color each time-block depending on if the block is in the future, current, or past
 function updateColor(hour) {
@@ -80,22 +84,23 @@ function updateColor(hour) {
 }
 
 //Saving user input to localStorage
-function savePlans(event) {
-  var hourSlot = parseInt($(".time-block").toLocaleString("id"));
-  var plan = $("textarea").val();
-  nineToFive[hourSlot].plans = plan;
-  localStorage.setItem('nineToFive', JSON.stringify(nineToFive));
+function saveInput(event) {
   event.preventDefault();
+  var timeblockSaveID = parseInt($(this).closest(".time-block").attr("id"));
+  var plansID = $.trim($(this).parents().siblings("textarea").val());
+  nineToFive[timeblockSaveID].plans = plansID;
+
+  localStorage.setItem("nineToFive", JSON.stringify(nineToFive));
 }
 
 //Retrieving user input from localStorage
-function getPlans() {
-  var workDay = JSON.parse(localStorage.getItem(schedule));
-    if (workDay)
-      return schedule = workDay;
+function getInput() {
+  var workDay = JSON.parse(localStorage.getItem("nineToFive"));
+  if (workDay) return nineToFive = workDay;
 }
-
 
 // Displaying the current date and time
 $("#currentDay").text(currentDay);
 $("#currentTime").text(clock);
+
+getInput();
