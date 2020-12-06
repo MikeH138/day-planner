@@ -17,8 +17,7 @@ Using this application is extremely straightforward.
 Simply fill out the timeblocks with your relevant tasks for the day, and click the save button next to the appropriate 
 timeblock to save your input.
 
-You will notice that when you reach the time of day associated with a timeblock (ex: once it becomes 10 am, the 10 am 
-timeblock will turn red, to remind you to tend to your tasks in that timeblock.
+You will notice that when you reach the time of day associated with a timeblock, it will turn red to remind you to tend to your tasks in that timeblock.
 
 As well, if a timeblock is in the past, it will then turn grey to indicate that.
 
